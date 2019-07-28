@@ -1,0 +1,78 @@
+<div class="container">
+    <h2>User Settings</h2>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)"> 
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" name="name" class="form-control" [(ngModel)]="userSettings.name" 
+                  required #nameField="ngModel"
+                  (blur)="onBlur(nameField)"
+                  [class.field-error]="form.submitted && nameField.invalid"/>
+            <div [hidden]="!form.submitted || nameField.valid" class="alert alert-danger">
+              Please enter your name, Here!
+            </div>
+        </div>    
+
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <input type="text"
+            placeholder="Start Date"
+            class="form-control"
+            [(ngModel)]="startDate" name="startDate" id="startDate"
+            bsDaterangepicker>
+        </div>
+
+        <div class="form-group">
+          <label for="startTime">Start Time</label>
+          <timepicker [(ngModel)]="startTime" name="startTime" id="startTime"></timepicker>
+        </div>
+
+        Start Time: {{ startTime }}
+
+        <button type="button" class="btn btn-primary form-group" name="singleModel"
+                [(ngModel)]="singleModel" btnCheckbox
+                btnCheckboxTrue="On" btnCheckboxFalse="Off">
+                {{ singleModel }} 
+        </button>
+
+        <div class="form-check form-group">
+            <input class="form-check-input" type="checkbox" value="" id="emailOffers" name="emailOffers" [(ngModel)]="userSettings.emailOffers">
+            <label class="form-check-label" for="emailOffers">
+              Email Special Offers
+            </label>
+        </div>
+        
+        <p>User Interface Style</p>
+        <div class="form-group">
+
+            <div class="btn-group">
+                <label class="btn btn-primary" [(ngModel)]="userSettings.interfaceStyle" name="interfaceStyle"
+                       btnRadio="Light" tabindex="0" role="button">Light</label>
+                <label class="btn btn-primary" [(ngModel)]="userSettings.interfaceStyle" name="interfaceStyle"
+                       btnRadio="Medium" tabindex="0" role="button">Medium</label>
+                <label class="btn btn-primary" [(ngModel)]="userSettings.interfaceStyle" name="interfaceStyle"
+                       btnRadio="Dark" tabindex="0" role="button">Dark</label>
+            </div>
+           
+        </div>
+
+        <div class="form-group">
+            <label for="subscriptionType">Subscription Type</label>
+            <select class="form-control" id="subscriptionType" name="subscriptionType" [(ngModel)]="userSettings.subscriptionType">
+              <option *ngFor="let type of subscriptionType | async">
+                {{ type }}
+              </option>             
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea class="form-control" id="notes" 
+                    rows="3" name="Notes"[(ngModel)]="userSettings.notes"  ></textarea>
+        </div>
+        
+        <div [hidden]="!postError" class="alert alert-danger">
+            {{ postErrorMessage }} 
+        </div>
+        <button class="btn btn-primary">Send</button>
+    </form>
+</div>
