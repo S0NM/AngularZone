@@ -20,7 +20,16 @@ export class CustomerComponent implements OnInit {
       lastName: new FormControl(),
       email: new FormControl(),
       sendCatalog: new FormControl(true)
-    });
+    })
+  }
+
+  populateTestData(): void{
+    this.customerForm.setValue({
+      firstName: 'Jack',
+      lastName: "Harkness",
+      email: 'jack@torchwood.com',
+      sendCatalog: false
+    })
   }
 
   save() {
